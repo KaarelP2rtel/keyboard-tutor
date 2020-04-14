@@ -1,0 +1,37 @@
+.tutor-window{
+width: 75vw;
+margin: auto;
+margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.tutor-container{
+font-size: 0;
+display: inline;
+white-space: nowrap;
+font-family: 'Courier New', Courier, monospace;
+}
+.tutor-completed{
+    color: gray;
+    font-size: 4vh;
+    white-space: pre-wrap;
+}
+.tutor-cursor{
+    color: red;
+    font-size: 4vh;
+    text-decoration: underline;
+    white-space: pre-wrap;
+
+}
+.tutor-uncompleted{
+    color: black;
+    font-size: 4vh;
+    white-space: pre-wrap;
+
+}
+.result{
+    font-size: 6vh;
+}
