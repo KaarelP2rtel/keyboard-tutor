@@ -115,9 +115,16 @@ var cursor;
 var uncompleted;
 
 const requestText = async () => {
-    const response = await fetch('https://baconipsum.com/api/?type=meat-and-filler&paras=1');
+    const response = await fetch('https://www.randomtext.me/api/gibberish/h1/50');
     const json = await response.json();
-    setText(json[0].replace(/\b\w/g, l => l.toUpperCase()).replace(/\s+/g, ' ').trim());
+    text=json.text_out
+        .replace("<h1>","") // randomtext.me only outputs "HTML" text
+        .replace("<h1/>","")
+        .replace(/\b\w/g, l => l.toUpperCase()) // Words will begin with capitals
+        .replace(/\s+/g, ' ') // collapse whitespace just in case.
+        .trim()
+        
+    setText(text);
     // Hardcoded text for unittests.
     // setText("hello world YHNUJM QAZWSXEDCRFVTGB")
 }
