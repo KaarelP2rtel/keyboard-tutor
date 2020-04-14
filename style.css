@@ -7,12 +7,13 @@ margin: 0;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  font-family: 'Courier New', Courier, monospace;
 }
 .tutor-container{
 font-size: 0;
 display: inline;
 white-space: nowrap;
-font-family: 'Courier New', Courier, monospace;
+
 }
 .tutor-completed{
     color: gray;
