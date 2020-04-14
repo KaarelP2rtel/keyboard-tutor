@@ -147,7 +147,6 @@ document.addEventListener('keydown', function (event) {
     if (!start_time) {
         start_time = new Date().getTime()
     }
-    console.log(event.keyCode)
 
     var key = '';
 
@@ -196,7 +195,6 @@ document.addEventListener('keydown', function (event) {
                 break;
             }
     }
-    console.log(`${key} vs ${cursor.innerHTML}`)
     if (key == cursor.innerHTML) {
         completed.innerHTML += key;
         cursor.innerHTML = (uncompleted.innerHTML.charAt(0));
