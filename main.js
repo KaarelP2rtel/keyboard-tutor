@@ -207,7 +207,8 @@ document.addEventListener('keydown', function (event) {
         var stop_time = new Date().getTime();
         var result = document.getElementById("result");
         var wpm = word_count / (((stop_time - start_time) / 1000) / 60);
-        result.innerHTML = `WPM: ${wpm.toFixed(2)}; Mistakes: ${mistakes}`;
+        var mpw = mistakes/word_count;
+        result.innerHTML = `WPM:${wpm.toFixed(2)}; MPW:${mpw.toFixed(2)}; Words:${word_count}; Mistakes:${mistakes};`;
         results_set = true
 
     }
