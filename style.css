@@ -1,7 +1,6 @@
 .tutor-window{
     width: 75vw;
-    margin: auto;
-    margin: 0;
+    padding: 1vh;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -12,8 +11,6 @@
     font-size: 0;
     display: inline;
     white-space: nowrap;
-    margin: 1vh;
-
 }
 .tutor-completed{
     color: gray;
