@@ -1,5 +1,6 @@
 KEYS={BACKSPACE:8,SHIFT:16,SPACE:32,KEY_0:48,KEY_Z:90,COMMA:188,DASH:189,PERIOD:190,FORWARD_SLASH:191,GRAVE_ACCENT:192,};const right_shift_letters="qazwsxedcrfvtgb"
-var start_time;var word_count;var mistakes=0;var left_upper=false;var right_upper=false;var completed;var cursor;var uncompleted;const reset=async()=>{text="hello world";start_time=undefined;results_set=false;mistakes=0;resetText(text);}
+var start_time;var word_count;var mistakes=0;var left_upper=false;var right_upper=false;var completed;var cursor;var uncompleted;const reset=async()=>{const response=await fetch('https://www.randomtext.me/api/gibberish/h1/50');const json=await response.json();text=json.text_out.replace("<h1>","").replace("<h1/>","").replace(/\b\w/g,l=>l.toUpperCase()).replace(/\s+/g,' ').trim()
+start_time=undefined;results_set=false;mistakes=0;resetText(text);}
 function resetText(text){completed.innerHTML=""
 cursor.innerHTML=text.charAt(0)
 uncompleted.innerHTML=text.substring(1)

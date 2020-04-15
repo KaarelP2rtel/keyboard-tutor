@@ -25,17 +25,16 @@ var cursor;
 var uncompleted;
 
 const reset = async () => {
-    // const response = await fetch('https://www.randomtext.me/api/gibberish/h1/50');
-    // const json = await response.json();
-    // text=json.text_out
-    //     .replace("<h1>","") // randomtext.me only outputs "HTML" text
-    //     .replace("<h1/>","")
-    //     .replace(/\b\w/g, l => l.toUpperCase()) // Words will begin with capitals
-    //     .replace(/\s+/g, ' ') // collapse whitespace just in case.
-    //     .trim()
+    const response = await fetch('https://www.randomtext.me/api/gibberish/h1/50');
+    const json = await response.json();
+    text=json.text_out
+        .replace("<h1>","") // randomtext.me only outputs "HTML" text
+        .replace("<h1/>","")
+        .replace(/\b\w/g, l => l.toUpperCase()) // Words will begin with capitals
+        .replace(/\s+/g, ' ') // collapse whitespace just in case.
+        .trim()
     // Hardcoded text for unittests.
     // text = "hello world YHNUJM QAZWSXEDCRFVTGB";
-    text = "hello world";
     start_time = undefined;
     results_set = false;
     mistakes = 0;
