@@ -1,5 +1,6 @@
 #!/bin/bash
 
-for file in $(echo src/*); do
-    minify "$file" > $(basename "$file")
-done
+
+minify src/style.css > style.css
+minify src/index.html > index.html
+butternut src/main.js > main.js
