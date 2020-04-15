@@ -104,7 +104,10 @@ document.addEventListener('keydown', function (event) {
             if (KEYS.KEY_0 <= event.keyCode && event.keyCode <= KEYS.KEY_Z) {
                 key = String.fromCharCode(event.keyCode);
                 key = key.toLowerCase();
-                if (right_upper && right_shift_letters.includes(key)) {
+                if (right_upper && left_upper){
+                    key=''; // Disallow holding both shifts down.
+                }
+                else if (right_upper && right_shift_letters.includes(key)) {
                     key = key.toUpperCase();
                 }
                 else if (left_upper && !right_shift_letters.includes(key)) {
