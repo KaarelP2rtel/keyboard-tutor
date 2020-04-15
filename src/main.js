@@ -14,8 +14,7 @@ KEYS = {
 const right_shift_letters = "qazwsxedcrfvtgb"
 
 var start_time;
-var results_set = false;
-var word_count = 0;
+var word_count;
 var mistakes = 0;
 
 var left_upper = false;
@@ -25,22 +24,27 @@ var completed;
 var cursor;
 var uncompleted;
 
-const requestText = async () => {
-    const response = await fetch('https://www.randomtext.me/api/gibberish/h1/50');
-    const json = await response.json();
-    text=json.text_out
-        .replace("<h1>","") // randomtext.me only outputs "HTML" text
-        .replace("<h1/>","")
-        .replace(/\b\w/g, l => l.toUpperCase()) // Words will begin with capitals
-        .replace(/\s+/g, ' ') // collapse whitespace just in case.
-        .trim()
-        
-    setText(text);
+const reset = async () => {
+    // const response = await fetch('https://www.randomtext.me/api/gibberish/h1/50');
+    // const json = await response.json();
+    // text=json.text_out
+    //     .replace("<h1>","") // randomtext.me only outputs "HTML" text
+    //     .replace("<h1/>","")
+    //     .replace(/\b\w/g, l => l.toUpperCase()) // Words will begin with capitals
+    //     .replace(/\s+/g, ' ') // collapse whitespace just in case.
+    //     .trim()
     // Hardcoded text for unittests.
-    // setText("hello world YHNUJM QAZWSXEDCRFVTGB")
+    // text = "hello world YHNUJM QAZWSXEDCRFVTGB";
+    text = "hello world";
+    start_time = undefined;
+    results_set = false;
+    mistakes = 0;
+    resetText(text);
+    
+
 }
 
-function setText(text) {
+function resetText(text) {
     completed.innerHTML = ""
     cursor.innerHTML = text.charAt(0)
     uncompleted.innerHTML = text.substring(1)
@@ -51,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     completed = document.getElementById("tutor-completed");
     cursor = document.getElementById("tutor-cursor");
     uncompleted = document.getElementById("tutor-uncompleted");
-    requestText();
+    reset();
 });
 
 document.addEventListener('keyup', function (event) {
@@ -63,7 +67,7 @@ document.addEventListener('keyup', function (event) {
 });
 document.addEventListener('keydown', function (event) {
     if (!start_time) {
-        start_time = new Date().getTime()
+        start_time = new Date().getTime();
     }
 
     var key = '';
@@ -98,7 +102,6 @@ document.addEventListener('keydown', function (event) {
             uncompleted.innerHTML = cursor.innerHTML + uncompleted.innerHTML;
             cursor.innerHTML = completed.innerHTML.slice(-1);
             completed.innerHTML = completed.innerHTML.slice(0, -1);
-            console.log("BACKSPACED");
             break;
         default:
             if (KEYS.KEY_0 <= event.keyCode && event.keyCode <= KEYS.KEY_Z) {
@@ -124,13 +127,12 @@ document.addEventListener('keydown', function (event) {
     else {
         mistakes++;
     }
-    if (uncompleted.innerHTML.length == 0 && cursor.innerHTML.length == 0 && !results_set) {
+    if (uncompleted.innerHTML.length == 0 && cursor.innerHTML.length == 0) {
         var stop_time = new Date().getTime();
         var result = document.getElementById("result");
         var wpm = word_count / (((stop_time - start_time) / 1000) / 60);
         var mpw = mistakes/word_count;
         result.innerHTML = `WPM:${wpm.toFixed(2)}; MPW:${mpw.toFixed(2)}; Words:${word_count}; Mistakes:${mistakes};`;
-        results_set = true
-
+        reset();
     }
 });
