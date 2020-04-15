@@ -39,8 +39,6 @@ const reset = async () => {
     results_set = false;
     mistakes = 0;
     resetText(text);
-    
-
 }
 
 function resetText(text) {
@@ -101,9 +99,6 @@ document.addEventListener('keydown', function (event) {
             break;
         default:
             if (KEYS.KEY_0 <= event.keyCode && event.keyCode <= KEYS.KEY_Z) {
-                if (!start_time) {
-                    start_time = new Date().getTime();
-                }
                 key = String.fromCharCode(event.keyCode);
                 key = key.toLowerCase();
                 if (right_upper && left_upper){
@@ -119,6 +114,9 @@ document.addEventListener('keydown', function (event) {
             break;
     }
     if (key == cursor.innerHTML) {
+        if (!start_time) {
+            start_time = new Date().getTime();
+        }
         completed.innerHTML += key;
         cursor.innerHTML = (uncompleted.innerHTML.charAt(0));
         uncompleted.innerHTML = uncompleted.innerHTML.substr(1);
