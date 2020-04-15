@@ -65,10 +65,7 @@ document.addEventListener('keyup', function (event) {
     }
 });
 document.addEventListener('keydown', function (event) {
-    if (!start_time) {
-        start_time = new Date().getTime();
-    }
-
+    
     var key = '';
 
     switch (event.keyCode) {
@@ -104,6 +101,9 @@ document.addEventListener('keydown', function (event) {
             break;
         default:
             if (KEYS.KEY_0 <= event.keyCode && event.keyCode <= KEYS.KEY_Z) {
+                if (!start_time) {
+                    start_time = new Date().getTime();
+                }
                 key = String.fromCharCode(event.keyCode);
                 key = key.toLowerCase();
                 if (right_upper && left_upper){
@@ -115,8 +115,8 @@ document.addEventListener('keydown', function (event) {
                 else if (left_upper && !right_shift_letters.includes(key)) {
                     key = key.toUpperCase();
                 }
-                break;
             }
+            break;
     }
     if (key == cursor.innerHTML) {
         completed.innerHTML += key;
