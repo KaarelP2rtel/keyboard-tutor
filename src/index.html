@@ -131,10 +131,10 @@ document.addEventListener('keydown', function (event) {
     }
     if (uncompleted.innerHTML.length == 0 && cursor.innerHTML.length == 0) {
         var stop_time = new Date().getTime();
-        var result = document.getElementById("result");
+        var tutor_result = document.getElementById("tutor-result");
         var wpm = word_count / (((stop_time - start_time) / 1000) / 60);
         var mpw = mistakes/word_count;
-        result.innerHTML = `WPM:${wpm.toFixed(2)}; MPW:${mpw.toFixed(2)}; Words:${word_count}; Mistakes:${mistakes};`;
+        tutor_result.innerHTML = `WPM:${wpm.toFixed(2)}; MPW:${mpw.toFixed(2)}; Words:${word_count}; Mistakes:${mistakes};`;
         reset();
     }
 });
@@ -173,7 +173,7 @@ document.addEventListener('keydown', function (event) {
     white-space: pre-wrap;
 
 }
-.result{
+.tutor-result{
     font-size: 5vh;
 }
 
@@ -187,7 +187,7 @@ document.addEventListener('keydown', function (event) {
       <span id="tutor-cursor" class="tutor-cursor"></span>
       <span id="tutor-uncompleted" class="tutor-uncompleted"></span>
     </div>
-    <h3 id="result" class="result">WPM:TBD; MPW:TBD; Words:TBD; Mistakes:TBD;</h3>
+    <h3 id="tutor-result" class="tutor-result">WPM:TBD; MPW:TBD; Words:TBD; Mistakes:TBD;</h3>
   </div>
 </body>
 </html>
