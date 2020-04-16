@@ -45,6 +45,10 @@ const reset = async () => {
     mistakes = 0;
     resetText(text);
 }
+//Wrapper so compressor can reduce even more
+function getElementById(id){
+  return document.getElementById(id);
+}
 
 function resetText(text) {
     completed.innerHTML = ""
@@ -54,9 +58,9 @@ function resetText(text) {
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    completed = document.getElementById("tutor-completed");
-    cursor = document.getElementById("tutor-cursor");
-    uncompleted = document.getElementById("tutor-uncompleted");
+    completed = getElementById("tutor-completed");
+    cursor = getElementById("tutor-cursor");
+    uncompleted = getElementById("tutor-uncompleted");
     reset();
 });
 
@@ -104,8 +108,7 @@ document.addEventListener('keydown', function (event) {
             break;
         default:
             if (KEYS.KEY_0 <= event.keyCode && event.keyCode <= KEYS.KEY_Z) {
-                key = String.fromCharCode(event.keyCode);
-                key = key.toLowerCase();
+                key = String.fromCharCode(event.keyCode).toLowerCase();
                 if (right_upper && left_upper){
                     key=''; // Disallow holding both shifts down.
                 }
@@ -131,7 +134,7 @@ document.addEventListener('keydown', function (event) {
     }
     if (uncompleted.innerHTML.length == 0 && cursor.innerHTML.length == 0) {
         var stop_time = new Date().getTime();
-        var tutor_result = document.getElementById("tutor-result");
+        var tutor_result = getElementById("tutor-result");
         var wpm = word_count / (((stop_time - start_time) / 1000) / 60);
         var mpw = mistakes/word_count;
         tutor_result.innerHTML = `WPM:${wpm.toFixed(2)}; MPW:${mpw.toFixed(2)}; Words:${word_count}; Mistakes:${mistakes};`;
@@ -155,23 +158,16 @@ document.addEventListener('keydown', function (event) {
     display: inline;
     white-space: nowrap;
 }
+.tutor-completed, .tutor-cursor, .tutor-uncompleted{
+  font-size: 4vh;
+  white-space: pre-wrap;
+}
 .tutor-completed{
     color: gray;
-    font-size: 4vh;
-    white-space: pre-wrap;
 }
 .tutor-cursor{
     color: red;
-    font-size: 4vh;
     text-decoration: underline;
-    white-space: pre-wrap;
-
-}
-.tutor-uncompleted{
-    color: black;
-    font-size: 4vh;
-    white-space: pre-wrap;
-
 }
 .tutor-result{
     font-size: 5vh;

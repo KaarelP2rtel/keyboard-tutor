@@ -9,32 +9,18 @@ for file in $(echo src/*); do
     sed -i 's/tutor-cursor/tr/g' "$target"
     sed -i 's/tutor-uncompleted/tu/g' "$target"
     sed -i 's/tutor-result/te/g' "$target"
+
+    sed -i 's/KEYS/K/g' "$target"
+    sed -i 's/BACKSPACE/B/g' "$target"
+    sed -i 's/SHIFT/S/g' "$target"
+    sed -i 's/SPACE/C/g' "$target"
+    sed -i 's/KEY_O/N/g' "$target"
+    sed -i 's/KEY_Z/Z/g' "$target"
+    sed -i 's/COMMA/M/g' "$target"
+    sed -i 's/DASH/D/g' "$target"
+    sed -i 's/PERIOD/P/g' "$target"
+    sed -i 's/FORWARD_SLASH/F/g' "$target"
+
+
+
 done 
-
-# .tutor-window{
-#     width: 75vw;
-#     padding: 1vh;
-#     position: absolute;
-#     top: 50%;
-#     left: 50%;
-#     transform: translate(-50%, -50%);
-#     font-family: 'Courier New', Courier, monospace;
-# }
-# .tutor-container{
-#     font-size: 0;
-#     display: inline;
-#     white-space: nowrap;
-# }
-# .tutor-completed{
-#     color: gray;
-#     font-size: 4vh;
-#     white-space: pre-wrap;
-# }
-# .tutor-cursor{
-#     color: red;
-#     font-size: 4vh;
-#     text-decoration: underline;
-#     white-space: pre-wrap;
-
-# }
-# .tutor-uncompleted{
