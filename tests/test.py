@@ -2,12 +2,13 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
-
+import time
 
 class TutorTest(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.get("http://localhost:8000")
+        time.sleep(1)
 
     def test_tutor_does_not_contain_completed_text(self):
         driver = self.driver
@@ -131,6 +132,27 @@ class TutorTest(unittest.TestCase):
 
         uncompleted=driver.find_element_by_id("tutor-uncompleted")
         self.assertEqual(uncompleted.text,"AZWSXEDCRFVTGB")
+
+
+    def test_tutor_disallows_shift_on_lowrcase_letters(self):
+        driver = self.driver
+        actions=ActionChains(driver)
+        actions\
+            .send_keys("h")\
+            .key_down(Keys.LEFT_SHIFT)\
+            .send_keys("e")\
+            .key_up(Keys.LEFT_SHIFT)
+        actions.perform()
+
+        completed=driver.find_element_by_id("tutor-completed")
+        self.assertEqual(completed.text,"h")
+
+        cursor=driver.find_element_by_id("tutor-cursor")
+        self.assertEqual(cursor.text,"e")
+
+        uncompleted=driver.find_element_by_id("tutor-uncompleted")
+        self.assertEqual(uncompleted.text,"llo world YHNUJM QAZWSXEDCRFVTGB")
+
 
 
     def tearDown(self):
