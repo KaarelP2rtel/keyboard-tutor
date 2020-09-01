@@ -21,6 +21,17 @@ for file in $(echo src/*); do
     sed -i 's/PERIOD/P/g' "$target"
     sed -i 's/FORWARD_SLASH/F/g' "$target"
 
-
-
 done 
+
+
+script=$(grep -Eoz "<script>.*</script>" index.html | tr "\0" "\n" )
+
+script=${script#"<script>"}
+script=${script%"</script>"}
+echo "$script" | wc -c
+script=$(curl -X POST -s --data-urlencode "input=${script}" https://javascript-minifier.com/raw)
+
+script="<script>$script</script>"
+export script
+html=$(<index.html)
+echo "$html" | tr -d "\n" | sed 's;<script>.*</script>;${script};g' | envsubst > index.html
