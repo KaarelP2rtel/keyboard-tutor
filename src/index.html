@@ -17,7 +17,7 @@ KEYS = {
     PERIOD: 190,
     FORWARD_SLASH: 191,
 };
-const right_shift_letters = "qazwsxedcrfvtgb"
+const right_shift_letters = "qazwsxedcrfvtgb";
 
 var start_time;
 var word_count;
@@ -38,7 +38,7 @@ const reset = async () => {
         .replace("<h1/>","")
         .replace(/\b\w/g, l => l.toUpperCase()) // Words will begin with capitals
         .replace(/\s+/g, ' ') // collapse whitespace just in case.
-        .trim()
+        .trim();
     // Hardcoded text for unittests.
     // text = "hello world YHNUJM QAZWSXEDCRFVTGB";
     start_time = undefined;
@@ -52,9 +52,9 @@ function getElementById(id){
 }
 
 function resetText(text) {
-    completed.innerHTML = ""
-    cursor.innerHTML = text.charAt(0)
-    uncompleted.innerHTML = text.substring(1)
+    completed.innerHTML = "";
+    cursor.innerHTML = text.charAt(0);
+    uncompleted.innerHTML = text.substring(1);
     word_count = text.split(" ").length;
 }
 
@@ -67,9 +67,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 document.addEventListener('keyup', function (event) {
     if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
-        left_upper = false
+        left_upper = false;
     } else if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
-        right_upper = false
+        right_upper = false;
     }
 });
 document.addEventListener('keydown', function (event) {
@@ -96,10 +96,10 @@ document.addEventListener('keydown', function (event) {
             break;
         case KEYS.SHIFT:
             if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
-                left_upper = true
+                left_upper = true;
                 return
             } else if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
-                right_upper = true
+                right_upper = true;
                 return
             }
         case KEYS.BACKSPACE:
@@ -117,13 +117,13 @@ document.addEventListener('keydown', function (event) {
                     if (right_shift_letters.includes(key)) {
                         key = key.toUpperCase();
                     }
-                    else { key = '' }
+                    else { key = ''; }
                 }
                 else if (left_upper) {
                     if (!right_shift_letters.includes(key)) {
                         key = key.toUpperCase();
                     }
-                    else { key = '' }
+                    else { key = ''; }
                 }
             }
             break;
@@ -143,8 +143,7 @@ document.addEventListener('keydown', function (event) {
         var stop_time = new Date().getTime();
         var tutor_result = getElementById("tutor-result");
         var wpm = word_count / (((stop_time - start_time) / 1000) / 60);
-        var mpw = mistakes/word_count;
-        tutor_result.innerHTML = `WPM:${wpm.toFixed(2)}; MPW:${mpw.toFixed(2)}; Words:${word_count}; Mistakes:${mistakes};`;
+        tutor_result.innerHTML = `WPM:${wpm.toFixed(2)};Words:${word_count}; Mistakes:${mistakes}`;
         reset();
     }
 });
@@ -186,12 +185,14 @@ document.addEventListener('keydown', function (event) {
 
 <body>
   <div class="tutor-window">
+      
     <div class="tutor-container">
       <span id="tutor-completed" class="tutor-completed"></span>
       <span id="tutor-cursor" class="tutor-cursor"></span>
       <span id="tutor-uncompleted" class="tutor-uncompleted"></span>
     </div>
-    <h3 id="tutor-result" class="tutor-result">WPM:TBD; MPW:TBD; Words:TBD; Mistakes:TBD;</h3>
+    <h3 id="tutor-result" class="tutor-result">WPM:TBD; Words:TBD; Mistakes:TBD</h3>
+    <p><i>This keyboard tutor teaches you to use both the left and the right shift keys. Left hand letters can only be capitalized with the right shift and vice versa. Check out the source code on <a href="https://github.com/KaarelP2rtel/keyboard-tutor">Github</a>.</i></p>
   </div>
 </body>
 </html>

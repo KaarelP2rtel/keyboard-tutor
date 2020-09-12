@@ -28,7 +28,6 @@ script=$(grep -Eoz "<script>.*</script>" index.html | tr "\0" "\n" )
 
 script=${script#"<script>"}
 script=${script%"</script>"}
-echo "$script" | wc -c
 script=$(curl -X POST -s --data-urlencode "input=${script}" https://javascript-minifier.com/raw)
 
 script="<script>$script</script>"
