@@ -34,3 +34,4 @@ script="<script>$script</script>"
 export script
 html=$(<index.html)
 echo "$html" | tr -d "\n" | sed 's;<script>.*</script>;${script};g' | envsubst > index.html
+wc -c index.html
