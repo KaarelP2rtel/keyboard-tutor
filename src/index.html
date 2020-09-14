@@ -47,13 +47,11 @@ const reset = async () => {
     mistakes = 0;
     resetText(text);
 }
-//Wrapper so compressor can reduce even more
-function getElementById(id){
-  return document.getElementById(id);
-}
-function addEventListener(name,func){
-    document.addEventListener(name,func)
-}
+//Wrappers so minifier can reduce even more
+const doc=document
+const getElementById=doc.getElementById.bind(doc)
+const addEventListener=doc.addEventListener.bind(doc)
+
 
 function resetText(text) {
     completed.innerHTML = "";
