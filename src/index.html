@@ -36,6 +36,7 @@ const reset = async () => {
     text=json.text_out
         .replace("<h1>","") // randomtext.me only outputs "HTML" text
         .replace("<h1/>","")
+        .replace("-"," ")
         .replace(/\b\w/g, l => l.toUpperCase()) // Words will begin with capitals
         .replace(/\s+/g, ' ') // collapse whitespace just in case.
         .trim();
