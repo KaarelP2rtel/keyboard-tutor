@@ -30,6 +30,7 @@ var completed;
 var cursor;
 var uncompleted;
 
+
 const reset = async () => {
     const response = await fetch('https://www.randomtext.me/api/gibberish/h1/50');
     const json = await response.json();
@@ -52,12 +53,15 @@ const doc=document
 const getElementById=doc.getElementById.bind(doc)
 const addEventListener=doc.addEventListener.bind(doc)
 
+const getInnerHTML=(element) =>{return element.innerHTML}
+const setInnerHTML = (element,value) =>{element.innerHTML=value}
 
-function resetText(text) {
-    completed.innerHTML = "";
-    cursor.innerHTML = text.charAt(0);
-    uncompleted.innerHTML = text.substring(1);
-    word_count = text.split(" ").length;
+
+const resetText =(text) => {
+    setInnerHTML(completed, "");
+    setInnerHTML(cursor, text.charAt(0));
+    setInnerHTML(uncompleted, text.substring(1));
+    word_count = text.split(" ").length;    
 }
 
 addEventListener("DOMContentLoaded", function (event) {
@@ -105,9 +109,9 @@ addEventListener('keydown', function (event) {
                 return
             }
         case KEYS.BACKSPACE:
-            uncompleted.innerHTML = cursor.innerHTML + uncompleted.innerHTML;
-            cursor.innerHTML = completed.innerHTML.slice(-1);
-            completed.innerHTML = completed.innerHTML.slice(0, -1);
+        setInnerHTML(uncompleted, getInnerHTML(cursor) + getInnerHTML(uncompleted));
+        setInnerHTML(cursor, getInnerHTML(completed).slice(-1));
+        setInnerHTML(completed, getInnerHTML(completed).slice(0, -1));
             break;
         default:
             if (KEYS.KEY_0 <= event.keyCode && event.keyCode <= KEYS.KEY_Z) {
@@ -130,22 +134,23 @@ addEventListener('keydown', function (event) {
             }
             break;
     }
-    if (key == cursor.innerHTML) {
+    if (key == getInnerHTML(cursor)) {
         if (!start_time) {
             start_time = new Date().getTime();
         }
-        completed.innerHTML += key;
-        cursor.innerHTML = (uncompleted.innerHTML.charAt(0));
-        uncompleted.innerHTML = uncompleted.innerHTML.substr(1);
+        // completed.innerHTML += key;
+        setInnerHTML(completed,getInnerHTML(completed)+key)
+        setInnerHTML(cursor, (getInnerHTML(uncompleted).charAt(0)));
+        setInnerHTML(uncompleted, getInnerHTML(uncompleted).substr(1));
     }
     else {
         mistakes++;
     }
-    if (uncompleted.innerHTML.length == 0 && cursor.innerHTML.length == 0) {
+    if (getInnerHTML(uncompleted).length == 0 && getInnerHTML(cursor).length == 0) {
         var stop_time = new Date().getTime();
         var tutor_result = getElementById("tutor-result");
         var wpm = word_count / (((stop_time - start_time) / 1000) / 60);
-        tutor_result.innerHTML = `WPM:${wpm.toFixed(2)};Words:${word_count}; Mistakes:${mistakes}`;
+        tutor_result, `WPM:${wpm.toFixed(2)};Words:${word_count}; Mistakes:${mistakes}`;
         reset();
     }
 });
