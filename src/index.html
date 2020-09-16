@@ -150,14 +150,14 @@ addEventListener('keydown', function (event) {
         var stop_time = new Date().getTime();
         var tutor_result = getElementById("tutor-result");
         var wpm = word_count / (((stop_time - start_time) / 1000) / 60);
-        tutor_result, `WPM:${wpm.toFixed(2)};Words:${word_count}; Mistakes:${mistakes}`;
+        setInnerHTML(tutor_result, `WPM:${wpm.toFixed(2)};Words:${word_count}; Mistakes:${mistakes}`);
         reset();
     }
 });
 })()
     </script>
     <style>
-.tutor-window{
+#tutor-window{
     width: 75vw;
     padding: 1vh;
     position: absolute;
@@ -166,23 +166,23 @@ addEventListener('keydown', function (event) {
     transform: translate(-50%, -50%);
     font-family: 'Courier New', Courier, monospace;
 }
-.tutor-container{
+#tutor-container{
     font-size: 0;
     display: inline;
     white-space: nowrap;
 }
-.tutor-completed, .tutor-cursor, .tutor-uncompleted{
+#tutor-completed, #tutor-cursor, #tutor-uncompleted{
   font-size: 4vh;
   white-space: pre-wrap;
 }
-.tutor-completed{
+#tutor-completed{
     color: gray;
 }
-.tutor-cursor{
+#tutor-cursor{
     color: red;
     text-decoration: underline;
 }
-.tutor-result{
+#tutor-result{
     font-size: 5vh;
 }
 
@@ -191,14 +191,14 @@ addEventListener('keydown', function (event) {
 </head>
 
 <body>
-  <div class="tutor-window">
+  <div id="tutor-window">
       
-    <div class="tutor-container">
-      <span id="tutor-completed" class="tutor-completed"></span>
-      <span id="tutor-cursor" class="tutor-cursor"></span>
-      <span id="tutor-uncompleted" class="tutor-uncompleted"></span>
+    <div id="tutor-container">
+      <span id="tutor-completed" ></span>
+      <span id="tutor-cursor" ></span>
+      <span id="tutor-uncompleted"></span>
     </div>
-    <h3 id="tutor-result" class="tutor-result">WPM:TBD; Words:TBD; Mistakes:TBD</h3>
+    <h3 id="tutor-result" >WPM:TBD; Words:TBD; Mistakes:TBD</h3>
     <p><i>This keyboard tutor teaches you to use both the left and the right shift keys. Left hand letters can only be capitalized with the right shift and vice versa. Check out the source code on <a href="https://github.com/KaarelP2rtel/keyboard-tutor">Github</a>.</i></p>
   </div>
 </body>
