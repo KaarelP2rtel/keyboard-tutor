@@ -17,7 +17,7 @@ KEYS = {
     PERIOD: 190,
     FORWARD_SLASH: 191,
 };
-const right_shift_letters = "qazwsxedcrfvtgb";
+var right_shift_letters = "qazwsxedcrfvtgb";
 
 var start_time;
 var word_count;
@@ -68,6 +68,15 @@ addEventListener("DOMContentLoaded", function (event) {
     completed = getElementById("tutor-completed");
     cursor = getElementById("tutor-cursor");
     uncompleted = getElementById("tutor-uncompleted");
+    doc.getElementById("currentLayout").addEventListener('click', function (event){
+        if(event.target.innerHTML.split(' ')[0]=='QWERTY'){ //if it is currently on QWERTY change to dvorak
+            right_shift_letters = "aoeuiqjkxy";
+            event.target.innerHTML = "dvorak mode"
+        }else{
+            right_shift_letters = "qazwsxedcrfvtgb";
+            event.target.innerHTML = "QWERTY mode"
+        }
+    })
     reset();
 });
 
@@ -185,7 +194,13 @@ addEventListener('keydown', function (event) {
 #tutor-result{
     font-size: 5vh;
 }
-
+#currentLayout{
+    color:blue;
+    font-size: 3vh;
+}
+#currentLayout:hover{
+    cursor: pointer;
+}
     </style>
     
 </head>
@@ -198,7 +213,7 @@ addEventListener('keydown', function (event) {
       <span id="tutor-cursor" ></span>
       <span id="tutor-uncompleted"></span>
     </div>
-    <h3 id="tutor-result" >WPM:TBD; Words:TBD; Mistakes:TBD</h3>
+    <h3 id="tutor-result" >WPM:TBD; Words:TBD; Mistakes:TBD <span id="currentLayout">QWERTY mode</span></h3>
     <p><i>This keyboard tutor teaches you to use both the left and the right shift keys. Left hand letters can only be capitalized with the right shift and vice versa. Check out the source code on <a href="https://github.com/KaarelP2rtel/keyboard-tutor">Github</a>.</i></p>
   </div>
 </body>
