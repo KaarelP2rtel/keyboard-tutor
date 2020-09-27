@@ -9,6 +9,8 @@ for file in $(echo src/*); do
     sed -i 's/tutor-cursor/tr/g' "$target"
     sed -i 's/tutor-uncompleted/tu/g' "$target"
     sed -i 's/tutor-result/te/g' "$target"
+    sed -i 's/tutor-status/ts/g' "$target"
+    sed -i 's/current-layout/cl/g' "$target"
 
     sed -i 's/KEYS/K/g' "$target"
     sed -i 's/BACKSPACE/B/g' "$target"
