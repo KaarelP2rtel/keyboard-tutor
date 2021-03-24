@@ -23,7 +23,7 @@ for file in $(echo src/*); do
     sed -i 's/PERIOD/P/g' "$target"
     sed -i 's/FORWARD_SLASH/F/g' "$target"
 
-done 
+done
 
 
 script=$(grep -Eoz "<script>.*</script>" index.html | tr "\0" "\n" )
