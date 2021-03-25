@@ -6,18 +6,8 @@
     <title>Keyboard-Tutor</title>
     <script>
 (function(){
-KEYS = {
-    BACKSPACE: 8,
-    SHIFT: 16,
-    SPACE: 32,
-    KEY_0: 48,
-    KEY_Z: 90,
-    COMMA: 188,
-    DASH: 189,
-    PERIOD: 190,
-    FORWARD_SLASH: 191,
-};
-var right_shift_letters = "qazwsxedcrfvtgb";
+
+var right_shift_letters = "QAZWSXEDCRFVTGB";
 
 var start_time;
 var word_count = 50;
@@ -61,19 +51,19 @@ addEventListener("DOMContentLoaded", function (event) {
     cursor = getElementById("tutor-cursor");
     uncompleted = getElementById("tutor-uncompleted");
     getElementById("current-layout").addEventListener('click', function (event){
-        var current_layout=getInnerHTML(event.target)
-        switch (current_layout){
+        var target=event.target
+        switch (getInnerHTML(target)){
             case "QWERTY":
-                right_shift_letters = "aoeuiqjkxyp"
-                setInnerHTML(event.target, "Dvorak")
+                right_shift_letters = "AOEUIQJKXYP"
+                setInnerHTML(target, "Dvorak")
                 break
             case "Dvorak":
-                right_shift_letters = "qazwrxfscptvgdb"
-                setInnerHTML(event.target, "Colemak")
+                right_shift_letters = "QAZWRXFSCPTVGDB"
+                setInnerHTML(target, "Colemak")
                 break
             default:
-                right_shift_letters = "qazwsxedcrfvtgb"
-                setInnerHTML(event.target,"QWERTY")
+                right_shift_letters = "QAZWSXEDCRFVTGB"
+                setInnerHTML(target,"QWERTY")
                 break
         }
 
@@ -88,65 +78,46 @@ addEventListener("DOMContentLoaded", function (event) {
 });
 
 addEventListener('keyup', function (event) {
-    if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
-        left_upper = false;
-    } else if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
-        right_upper = false;
+    if(event.keyCode===16){
+        left_upper = ! event.location === 1
+        right_upper = ! event.location === 2
     }
 });
 addEventListener('keydown', function (event) {
 
     var key = '';
-
-    switch (event.keyCode) {
-        case KEYS.SPACE:
+    var keyCode=event.keyCode
+    switch (keyCode) {
+        case 32: // Space
             event.preventDefault();
             key = ' ';
             break;
-        case KEYS.FORWARD_SLASH:
+        case 191: // Forward slash (causes search bar to open)
+        case 222: // Single Quote (causes search bar to open)
             event.preventDefault();
-            key = '/';
             break;
-        case KEYS.COMMA:
-            key = ',';
-            break;
-        case KEYS.PERIOD:
-            key = '.';
-            break;
-        case 173:
-            key = '-';
-            break;
-        case KEYS.SHIFT:
-            if (event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT) {
-                left_upper = true;
-                return
-            } else if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
-                right_upper = true;
-                return
-            }
-        case KEYS.BACKSPACE:
-        setInnerHTML(uncompleted, getInnerHTML(cursor) + getInnerHTML(uncompleted));
-        setInnerHTML(cursor, getInnerHTML(completed).slice(-1));
-        setInnerHTML(completed, getInnerHTML(completed).slice(0, -1));
+        case 16: // Shift
+            left_upper = event.location === 1;
+            right_upper = event.location === 2;
+            return;
+        case 8: // Backspace
+            setInnerHTML(uncompleted, getInnerHTML(cursor) + getInnerHTML(uncompleted));
+            setInnerHTML(cursor, getInnerHTML(completed).slice(-1));
+            setInnerHTML(completed, getInnerHTML(completed).slice(0, -1));
             break;
         default:
-            if (KEYS.KEY_0 <= event.keyCode && event.keyCode <= KEYS.KEY_Z) {
-                key = String.fromCharCode(event.keyCode).toLowerCase();
+            if (keyCode < 91) { // Key 0 = 0 and Key Z = 90
+                key=String.fromCharCode(keyCode)
                 if (right_upper && left_upper) {
-                    key = ''; // Disallow holding both shifts down.
+                    key='';
                 }
                 else if (right_upper) {
-                    if (right_shift_letters.includes(key)) {
-                        key = key.toUpperCase();
-                    }
-                    else { key = ''; }
+                    key = right_shift_letters.includes(key) ? key : '';
                 }
                 else if (left_upper) {
-                    if (!right_shift_letters.includes(key)) {
-                        key = key.toUpperCase();
-                    }
-                    else { key = ''; }
+                    key = !right_shift_letters.includes(key) ? key : '';
                 }
+                else{key=key.toLowerCase()}
             }
             break;
     }
@@ -164,9 +135,8 @@ addEventListener('keydown', function (event) {
     }
     if (getInnerHTML(uncompleted).length == 0 && getInnerHTML(cursor).length == 0) {
         var stop_time = new Date().getTime();
-        var tutor_result = getElementById("tutor-result");
-        var wpm = word_count / (((stop_time - start_time) / 1000) / 60);
-        setInnerHTML(tutor_result, `WPM:${wpm.toFixed(2)};Words:${word_count}; Mistakes:${mistakes}`);
+        var wpm = word_count / (((stop_time - start_time) / 60000));
+        setInnerHTML(getElementById("tutor-result"), `WPM:${wpm.toFixed(2)};Words:${word_count}; Mistakes:${mistakes}`);
         getmoretext();
     }
 });
@@ -220,7 +190,7 @@ addEventListener('keydown', function (event) {
       <span id="tutor-uncompleted"></span>
     </div>
     <h3 id="tutor-status"><span id="tutor-result" >WPM:TBD; Words:TBD; Mistakes:TBD;</span> Layout: <span id="current-layout">QWERTY</span></h3>
-    <p><i>This keyboard tutor teaches you to use both the left and the right shift keys. Left hand letters can only be capitalized with the right shift and vice versa. Check out the source code on <a href="https://github.com/KaarelP2rtel/keyboard-tutor">Github</a>.</i></p>
+    <p><i>This keyboard tutor teaches you to use both the left and the right shift keys. Left hand letters can only be capitalized with the right shift and vice versa. Check out the source code on <a href="https://git.io/JYUvs">Github</a>.</i></p>
   </div>
 </body>
 </html>
